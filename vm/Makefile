@@ -5,138 +5,243 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/12/05 13:46:57 by ade-verd          #+#    #+#              #
-#    Updated: 2019/03/08 18:01:54 by ade-verd         ###   ########.fr        #
+#    Created: 2018/04/23 12:33:34 by ade-verd          #+#    #+#              #
+#    Updated: 2019/03/08 17:52:28 by ade-verd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Binary
-NAME = asm_and_corewar_and_rasm
-NAME_ASM = asm
-NAME_CW = corewar
-NAME_RASM = rasm
+NAME = corewar
 
-SUBMOD = submodules
+# Compiler
+CC = gcc
 
 # Directories
-ASM_PATH = assembler
-CW_PATH = vm
-RASM_PATH = rassembler
-PRINTF_PATH = libftprintf/
+PROJECT_PATH = ../
+PROJECT_ABSPATH = $(shell cd $(PROJECT_PATH); pwd)
+SRC_PATH = src/
+VISU_PATH = visual/
+OP_PATH = op/
+VERBOSE_PATH = verbose/
+OBJ_PATH = obj/
+SCRIPTS_PATH = $(PROJECT_PATH)scripts/
+PRINTF_PATH = $(PROJECT_PATH)libftprintf/
+LIBFT_PATH = $(PRINTF_PATH)libft/
+LIB_PATH = $(LIBFT_PATH) $(PRINTF_PATH)
+INC_PATH = $(PROJECT_PATH)includes/ \
+		   $(addsuffix includes/, $(LIB_PATH))
+
+# Includes & libraries
+CPPFLAGS = $(addprefix -I ,$(INC_PATH))
+LDFLAGS = $(addprefix -L ,$(LIB_PATH))
+LDLIBS = -lft -lftprintf -lncurses
+
+DEPENDENCIES = 	$(PROJECT_PATH)includes/op.h\
+				$(PROJECT_PATH)includes/cw.h\
+				$(PROJECT_PATH)includes/visu.h\
+
+# Prerequisites
+PREREQUISITES_NAME = 	\
+						setup_ncurses.sh\
+
+PREREQUISITES = $(addprefix $(SCRIPTS_PATH), $(PREREQUISITES_NAME))
+
+DEFINES = -D CUR_DIR=\"$(CURDIR)/\"
+
+# Sources
+SRC_NAME = 	\
+			main.c\
+			\
+			s_env.c\
+			s_proc.c\
+			s_player.c\
+			\
+			check_argv.c\
+			read_argv.c\
+			\
+			process_init.c\
+			process.c\
+			winner.c\
+			\
+			error.c\
+			\
+			options.c\
+			ft_dump_memory.c\
+			\
+			arg_checkers.c\
+			reg_checker.c\
+			op_tools.c\
+			move_pc.c\
+			\
+			ft_isnumber.c\
+			\
+			$(VISUAL)\
+			$(OP)\
+			$(VERBOSE)\
+
+VISU_NAME = \
+			visual_init.c\
+			visual_header.c\
+			visual_footer.c\
+			visual_colorized.c\
+			visual_info.c\
+			visual_memdump.c\
+			visual_live_breakdown.c\
+			visual_events.c\
+			visual_resize.c\
+			visual_quit.c\
+			\
+			ft_getch.c\
+			ft_wrefresh.c\
+
+OP_NAME = \
+			ft_live.c\
+			ft_ld.c\
+			ft_st.c\
+			ft_add.c\
+			ft_sub.c\
+			and_or_xor_core.c\
+			ft_and_or_xor.c\
+			ft_zjmp.c\
+			ft_ldi.c\
+			ft_sti.c\
+			ft_fork.c\
+			ft_lld.c\
+			ft_lldi.c\
+			ft_lfork.c\
+			ft_aff.c\
+
+VERBOSE_NAME = \
+			printer.c\
+			specific_verbose.c\
+			verbose_core.c\
+
+VISUAL = $(addprefix $(VISU_PATH),$(VISU_NAME))
+OP = $(addprefix $(OP_PATH),$(OP_NAME))
+VERBOSE = $(addprefix $(VERBOSE_PATH),$(VERBOSE_NAME))
+
+OBJ_NAME = $(SRC_NAME:.c=.o)
+
+SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+
+# Flags with OS Compatibiliy
+OS = $(shell uname)
+ifeq ($(OS), Darwin)
+	FLAGS_DEFAULT = -Werror -Wall -Wextra
+endif
+ifeq ($(OS), Linux)
+	FLAGS_DEFAULT = -Wno-unused-result
+endif
+ifdef FLAGS
+	ifeq ($(FLAGS), no)
+		CFLAGS := $(ADDFLAGS)
+	endif
+	ifeq ($(FLAGS), debug)
+		CFLAGS := $(FLAGS_DEFAULT) -ansi -pedantic -g $(ADDFLAGS)
+	endif
+	ifeq ($(FLAGS), fast)
+		CFLAGS := $(FLAGS_DEFAULT) -O3 $(ADDFLAGS)
+	endif
+else
+	CFLAGS := $(FLAGS_DEFAULT) $(ADDFLAGS)
+endif
 
 # MAKEFLAGS
-MAKEFLAG += --no-print-directory
-MAKE = make $(MAKEFLAG) -C
+MAKE = make | perl -ne '$|=1; print unless /nothing to be done|up to date/i'
+MAKEC = make -s --no-print-directory -C
+
+# Variables
+COUNTER=0
 
 # **************************************************************************** #
 # SPECIALS CHARS                                                               #
 # **************************************************************************** #
 LOG_CLEAR = \033[2K
+LOG_UP = \033[A
 LOG_NOCOLOR = \033[0m
+LOG_BOLD = \033[1m
+LOG_UNDERLINE = \033[4m
+LOG_BLINKING = \033[5m
+LOG_BLACK = \033[1;30m
 LOG_RED = \033[1;31m
-LOG_BLUE = \033[1;34m
+LOG_GREEN = \033[1;32m
 LOG_YELLOW = \033[1;33m
+LOG_BLUE = \033[1;34m
+LOG_VIOLET = \033[1;35m
+LOG_CYAN = \033[1;36m
+LOG_WHITE = \033[1;37m
 
 TITLE = $(LOG_CLEAR)$(LOG_BLUE)
 END_TITLE = $(LOG_NOCOLOR)
+LINKING = "--$(LOG_CLEAR)$(LOG_GREEN)✓$(LOG_NOCOLOR)\tlinking " \
+				".................. $(LOG_VIOLET)$<$(LOG_NOCOLOR)"
+ASSEMBLING = "--$(LOG_CLEAR)$(LOG_GREEN)✓$(LOG_NOCOLOR)\tassembling " \
+			 	"............... $(LOG_YELLOW)$(NAME)$(LOG_NOCOLOR)"
+OBJECTS_DEL = "--$(LOG_CLEAR)$(LOG_YELLOW)Objects$(LOG_NOCOLOR) deletion " \
+				"............ $(LOG_RED)×$(LOG_NOCOLOR)"
 BIN_DEL = "--$(LOG_CLEAR)$(LOG_YELLOW)Binary$(LOG_NOCOLOR) deletion " \
 				"............. $(LOG_RED)×$(LOG_NOCOLOR)"
 
 # **************************************************************************** #
 # RULES                                                                        #
 # **************************************************************************** #
-.PHONY: all
+.PHONY: all, clean, fclean, re, norme, norm,\
+		prerequisites, libft, libftprintf.a force\
+		init_submodule update_submodule
+
 all: $(NAME)
 
-.PHONY: $(NAME)
-$(NAME): $(NAME_ASM) $(NAME_CW) $(NAME_RASM)
+$(NAME): prerequisites $(OBJ_PATH) $(OBJ)
+	@$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	@if [ $(COUNTER) -ne 0 ]; then echo -e $(ASSEMBLING); fi;
 
-.PHONY: $(NAME_ASM)
-$(NAME_ASM): force
-	@$(MAKE) $(ASM_PATH) $@
-	@if [ -h $@ ]; then rm -f $@; fi;
-	@if [ -f $(ASM_PATH)/$@ ]; then ln -s $(ASM_PATH)/$@ .; fi;
+prerequisites:
+	@$(foreach PREREQUISITES_NAME, $(PREREQUISITES_NAME), $(PREREQUISITES);)
+	@make libftprintf.a
 
-.PHONY: $(NAME_CW)
-$(NAME_CW): force
-	@$(MAKE) $(CW_PATH) $@
-	@if [ -h $@ ]; then rm -f $@; fi;
-	@if [ -f $(CW_PATH)/$@ ]; then ln -s $(CW_PATH)/$@ .; fi;
-
-.PHONY: $(NAME_RASM)
-$(NAME_RASM): force
-	@$(MAKE) $(RASM_PATH) $@
-	@if [ -h $@ ]; then rm -f $@; fi;
-	@if [ -f $(RASM_PATH)/$@ ]; then ln -s $(RASM_PATH)/$@ .; fi;
-
-.PHONY: libft
 libft:
 	@make libftprintf.a
 
-.PHONY: libftprintf.a
 libftprintf.a:
-	@$(MAKE) $(PRINTF_PATH) $@
+	@$(MAKEC) $(PRINTF_PATH) $@
 
-.PHONY: force
-force:
-	@true
+$(OBJ_PATH):
+	@echo -e "$(TITLE)build $(NAME)$(END_TITLE)"
+	@echo -e "--$(LOG_CLEAR)Flags : $(CFLAGS)"
+	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/$(VISU_PATH)
+	@mkdir -p $(OBJ_PATH)/$(OP_PATH)
+	@mkdir -p $(OBJ_PATH)/$(VERBOSE_PATH)
 
-.PHONY: clean
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(DEPENDENCIES)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ $(DEFINES)
+	@echo -e $(LINKING)
+	@$(eval COUNTER=$(shell echo $$(($(COUNTER)+1))))
+
 clean:
-	@$(MAKE) $(ASM_PATH) clean
-	@$(MAKE) $(CW_PATH) clean
-	@$(MAKE) $(RASM_PATH) clean
+	@echo -e "$(TITLE)clean $(NAME)$(END_TITLE)"
+	@echo -e $(OBJECTS_DEL)
+	@rm -Rf $(OBJ_PATH)
+	@$(MAKEC) $(PRINTF_PATH) clean_quiet
 
-.PHONY: fclean
 fclean:
-	@$(MAKE) $(ASM_PATH) fclean
-	@$(MAKE) $(CW_PATH) fclean
-	@$(MAKE) $(RASM_PATH) fclean
-	@if [ -h $(NAME_ASM) ]; then rm -f $(NAME_ASM); fi;
-	@if [ -h $(NAME_CW) ]; then rm -f $(NAME_CW); fi;
-	@if [ -h $(NAME_RASM) ]; then rm -f $(NAME_RASM); fi;
+	@echo -e "$(TITLE)fclean $(NAME)$(END_TITLE)"
+	@echo -e $(OBJECTS_DEL)
+	@rm -Rf $(OBJ_PATH)
+	@echo -e $(BIN_DEL)
+	@rm -f $(NAME)
+	@$(MAKEC) $(PRINTF_PATH) fclean_quiet
 
-.PHONY: re
 re: fclean all
 
-.PHONY: norme
+# Norm
 norme:
-	@echo -e "$(TITLE)Norminette: $(NAME_ASM)$(END_TITLE)"
-	@$(MAKE) $(ASM_PATH) norme
-	@echo -e "$(TITLE)Norminette: $(NAME_CW)$(END_TITLE)"
-	@$(MAKE) $(CW_PATH) norme
-	@echo -e "$(TITLE)Norminette: $(NAME_RASM)$(END_TITLE)"
-	@$(MAKE) $(RASM_PATH) norme
+	norminette $(SRC)
+	norminette $(DEPENDENCIES)
 
-.PHONY: norm
 norm:
-	@echo -e "$(TITLE)Norminette: $(NAME_ASM)$(END_TITLE)"
-	@$(MAKE) $(ASM_PATH) norm
-	@echo -e "$(TITLE)Norminette: $(NAME_CW)$(END_TITLE)"
-	@$(MAKE) $(CW_PATH) norm
-	@echo -e "$(TITLE)Norminette: $(NAME_RASM)$(END_TITLE)"
-	@$(MAKE) $(RASM_PATH) norm
+	make norme | grep -B 1 "Error\|Warning" || echo "norme OK"
 
-.PHONY: submod_init
-submod_init:
-	@echo -e "$(TITLE)Init submodules$(END_TITLE)"
-	git submodule update --init --recursive
-
-.PHONY: submod_update
-submod_update: submod_init
-	@echo -e "$(TITLE)Update submodules$(END_TITLE)"
-	git submodule update --recursive --remote
-
-.PHONY: submod_checkid
-submod_checkid:
-	@echo -e "$(TITLE)Submodules commit ID$(END_TITLE)"
-	git submodule ; git submodule foreach git submodule
-	@echo "---------"
-	cat $(SUBMOD)
-
-.PHONY: submod_checkid
-submod_saveid: submod_init submod_update
-	@echo -e "$(TITLE)Save submodules commit ID into \"$(SUBMOD)\"$(END_TITLE)"
-	@git submodule > $(SUBMOD)
-	@git submodule foreach git submodule >> $(SUBMOD)
-	@cat $(SUBMOD)
+force:
+	@true

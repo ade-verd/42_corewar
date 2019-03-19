@@ -1,3 +1,0 @@
-.name		"NoInstr"
-.comment	"uctions"
-
