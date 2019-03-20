@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oozkaya <oozkaya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 11:46:17 by oozkaya           #+#    #+#             */
-/*   Updated: 2019/03/14 13:01:42 by oozkaya          ###   ########.fr       */
+/*   Updated: 2019/03/20 11:31:30 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void		parse_nb(t_env *env, char *str, int lastflag, int *nextisnb)
 				get_flagname(lastflag)));
 	}
 	if (n > INT_MAX)
+		add_error(env, "Given number has to be an integer");
+	if (lastflag & FLAG_PLAYER && n < INT_MIN)
 		add_error(env, "Given number has to be an integer");
 	if (lastflag & FLAG_PLAYER)
 		env->pid.tab[env->pid.i++] = n;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oozkaya <oozkaya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 17:04:36 by oozkaya           #+#    #+#             */
-/*   Updated: 2019/03/06 18:59:39 by oozkaya          ###   ########.fr       */
+/*   Updated: 2019/03/20 20:25:51 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	buffer_add_char(t_buffer *aff, char c, size_t size)
 void		ft_aff(t_env *env, t_proc *proc)
 {
 	t_arg_type	arg[4];
-	int			reg;
+	int			r;
 	char		aff;
 
 	op_intro(proc, OP_AFF, CH_AFF);
@@ -64,8 +64,9 @@ void		ft_aff(t_env *env, t_proc *proc)
 			return ;
 		}
 		proc->pc += 2;
-		reg = env->arena[proc->pc++ % MEM_SIZE] - 1;
-		aff = proc->reg[reg] % 256;
+		if ((r = env->arena[proc->pc++ % MEM_SIZE] - 1) < 0 || r >= REG_NUMBER)
+			return ;
+		aff = proc->reg[r] % 256;
 		buffer_add_char(env->aff, aff, 1);
 		printer(env, 0, "aff -> added character : |%c|\n", aff);
 		visu_movepc(env, proc);

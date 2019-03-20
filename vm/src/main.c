@@ -6,7 +6,7 @@
 /*   By: oozkaya <oozkaya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:08:13 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/14 13:01:27 by oozkaya          ###   ########.fr       */
+/*   Updated: 2019/03/20 11:20:28 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	help(void)
 {
-	ft_printf("Usage\t./corewar [-hcvdD [cycle_nb]] ([-n nb] file.cor) ...\n");
+	ft_printf("Usage\t./corewar [-havdDsc [cycle_nb]] [-n nb] file.cor ...\n");
 	ft_printf("Executes all the given '.cor' files, the champions, "\
 		"to make them fight (maximum 4 champions)\n");
 	ft_printf("——————\n");
@@ -23,12 +23,12 @@ void	help(void)
 	ft_printf("-vV\t[Verbose] Enables the verbose mode\n");
 	ft_printf("-d (i)\t[dump] Dumps a 32x128 arena after i cycles\n");
 	ft_printf("-D (i): [Dump] Dumps a 64x64 arena with player's colors\n");
+	ft_printf("-sS (i)\t[Sleep] Runs i cycles, dumps memory, waits for "\
+		"an user action, then repeats\n");
 	ft_printf("-cC [i]\t[nCurses] Enables the Ncurses visual mode\n");
 	ft_printf("\t -cC [i]: Starts at cycle i. i has to be bigger than 0\n");
 	ft_printf("\tThe Ncurses option disables dump options (-dD)\n");
 	ft_printf("-nN (i)\t[Nplayer] Sets the next champion's number at i.\n");
-	ft_printf("-sS (i)\t[Sleep] Runs i cycles, dumps memory, waits for an user"\
-		" action, then repeats\n");
 }
 
 int		main(int ac, char **av)

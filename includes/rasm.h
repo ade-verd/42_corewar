@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 21:55:36 by rahassin          #+#    #+#             */
-/*   Updated: 2019/03/18 22:21:16 by rahassin         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:22:56 by rahassin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ typedef	struct		s_opc
 
 int					asmr_arg(int o, unsigned char *file, int i, int fd);
 int					asmr_instr(int fd, int fdo, int s, int i);
-void				asmr(char *file, int len, int i);
+void				asmr(char *file, int len, int i, int fd);
 
 #endif

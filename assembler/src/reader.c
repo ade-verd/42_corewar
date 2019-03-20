@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/26 18:50:18 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/14 12:53:15 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/14 17:09:44 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void	allocate_sstr(t_env *env)
 		error(env, (char*)__FUNCTION__, 1);
 	if (!(env->sstr = ft_strnew(size)))
 		error(env, (char*)__FUNCTION__, 1);
+	ft_bzero(env->sstr, size);
 	if (env && env->fd_in >= 0 && (size = lseek(env->fd_in, 0, SEEK_SET)) == -1)
 		error(env, (char*)__FUNCTION__, 1);
 }
@@ -129,7 +130,8 @@ void		read_fd(t_env *env)
 	while (env->fd_in >= 0 && (ret = get_next_line(env->fd_in, &line)) > 0)
 	{
 		trim = ft_strtrim(line);
-		ft_strcat(env->sstr, "\n");
+		if (env->sstr[0])
+			ft_strcat(env->sstr, "\n");
 		if (env->sstr && trim)
 			ft_strcat(env->sstr, trim);
 		if (trim)

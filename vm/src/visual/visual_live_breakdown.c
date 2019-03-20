@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:59:32 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/05 19:08:03 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/20 19:22:43 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ void		visu_currlive_brkdown(t_env *env, int *y, int x)
 	int			n;
 	int			color;
 
-	sum = env->nbr_live;
+	sum = get_sum_lives(env, "curr");
 	p = env->player;
 	mvwprintw(env->gph->winf, (*y)++, x, "Live breakdown for current period:");
 	!sum ? visu_default_bkdwn(env, y, x, 1) : visu_default_bkdwn(env, y, x, 0);
-	while (p && sum)
+	while (p && sum > 0)
 	{
 		color = ft_abs(p->id);
 		n = (p->lives_curr * (env->gph->inf.c - 4)) / sum;
@@ -114,7 +114,7 @@ void		visu_currlive_brkdown(t_env *env, int *y, int x)
 			n += (env->gph->inf.c - 2) - (x + n);
 		color_adjust(env, p->id, &color, "curr");
 		wattron(env->gph->winf, COLOR_PAIR(RCOLOR - color));
-		while (n--)
+		while (n-- > 0 && x < (env->gph->inf.c - 2))
 			mvwprintw(env->gph->winf, *y, x++, " ");
 		wattroff(env->gph->winf, COLOR_PAIR(RCOLOR - color));
 		p = p->next;
@@ -141,14 +141,14 @@ void		visu_lastlive_brkdown(t_env *env, int *y, int x)
 	p = env->player;
 	mvwprintw(env->gph->winf, (*y)++, x, "Live breakdown for last period:");
 	!sum ? visu_default_bkdwn(env, y, x, 1) : visu_default_bkdwn(env, y, x, 0);
-	while (p && sum)
+	while (p && sum > 0)
 	{
 		n = (p->lives_last * (env->gph->inf.c - 4)) / sum;
 		if (!p->next)
 			n += (env->gph->inf.c - 2) - (x + n);
 		color_adjust(env, p->id, &color, "last");
 		wattron(env->gph->winf, COLOR_PAIR(RCOLOR - color));
-		while (n--)
+		while (n-- > 0 && x < (env->gph->inf.c - 2))
 			mvwprintw(env->gph->winf, *y, x++, " ");
 		wattroff(env->gph->winf, COLOR_PAIR(RCOLOR - color));
 		p = p->next;

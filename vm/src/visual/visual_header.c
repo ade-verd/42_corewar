@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:47:09 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/08 17:52:11 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:10:21 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	visu_display_authors(t_env *env, t_gph *gph, int x)
 
 	i = 0;
 	line = NULL;
-	if ((fd = ft_open_fd(AUTHORS_PATH, O_RDONLY, S_IRUSR)) == -1)
+	if ((fd = ft_open_fd(AUTHORS_PATH, O_RDPERM, S_IRUSR)) == -1)
 		error(env, (char*)__FUNCTION__, 1);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
@@ -65,7 +65,7 @@ void	visu_display_header(t_env *env, t_gph *gph)
 	gph->head.c = 0;
 	gph->head.x = 0;
 	gph->head.y = 0;
-	if ((fd = ft_open_fd(HEADER_PATH, O_RDONLY, S_IRUSR)) == -1)
+	if ((fd = ft_open_fd(HEADER_PATH, O_RDPERM, S_IRUSR)) == -1)
 		error(env, (char*)__FUNCTION__, 1);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{

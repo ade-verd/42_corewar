@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 20:45:27 by rahassin          #+#    #+#             */
-/*   Updated: 2019/03/18 22:26:57 by rahassin         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:23:47 by rahassin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ int					asm_head(int i, unsigned char *buff, int fdo)
 	return (s);
 }
 
-void				asmr(char *file, int len, int i)
+void				asmr(char *file, int len, int i, int fd)
 {
 	unsigned char	buff[2191 + 1];
-	int				fd;
 	int				fdo;
 
 	if ((fd = open(file, O_RDONLY | O_RDWR | O_NOCTTY | O_NOFOLLOW
@@ -53,7 +52,8 @@ void				asmr(char *file, int len, int i)
 	file[len - 4] = '\0';
 	file = ft_strcat(file, "R.s\0");
 	fdo = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (buff[0] != 0 && buff[1] != 0xea && buff[2] != 0x83 && buff[3] != 0xf3)
+	if (buff[0] == '\0' || (buff[0] != 0 && buff[1] != 0xea && buff[2] != 0x83
+				&& buff[3] != 0xf3))
 	{
 		ft_putstr_fd(ERR_MGN, 2);
 		return ;

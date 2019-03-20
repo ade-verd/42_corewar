@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oozkaya <oozkaya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 19:18:41 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/13 10:48:02 by oozkaya          ###   ########.fr       */
+/*   Updated: 2019/03/20 20:25:05 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "visu.h"
 
 # define INPUT_EXT		".cor"
+# define O_RDPERM		(O_RDONLY | O_NOFOLLOW | O_NOCTTY | O_NONBLOCK)
 
 # define FLAG_HELP		1
 # define FLAG_NCURSES	2

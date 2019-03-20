@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:32:11 by ade-verd          #+#    #+#             */
-/*   Updated: 2018/12/13 14:57:38 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/20 12:59:13 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 
 void		open_input(t_env *env)
 {
+	int	o_perm;
+
+	o_perm = O_RDONLY | O_NOFOLLOW | O_NOCTTY | O_NONBLOCK;
 	if (env && env->input)
 	{
-		if ((env->fd_in = ft_open_fd(env->input, O_RDONLY, S_IRUSR)) == -1)
+		if ((env->fd_in = ft_open_fd(env->input, o_perm, S_IRUSR)) == -1)
 			error(env, (char*)__FUNCTION__, 1);
 	}
 	else

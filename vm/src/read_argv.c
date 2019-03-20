@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_argv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oozkaya <oozkaya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 11:45:50 by oozkaya           #+#    #+#             */
-/*   Updated: 2019/03/13 10:50:13 by oozkaya          ###   ########.fr       */
+/*   Updated: 2019/03/20 13:04:04 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void			read_argv(t_env *env, int ac, char **av)
 		flag_n = ft_strequ(av[i], "-n") || ft_strequ(av[i], "-N") ? 1 : flag_n;
 		if (ft_strright(av[i], INPUT_EXT))
 		{
-			if ((fd = ft_open_fd(av[i], O_RDONLY, S_IRUSR)) == -1)
+			if ((fd = ft_open_fd(av[i], O_RDPERM, S_IRUSR)) == -1)
 				error(env, (char *)__FUNCTION__, 1);
 			p = s_player_new(env, flag_n);
 			read_header(env, p, fd);

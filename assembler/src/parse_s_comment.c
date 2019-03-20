@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:20:47 by ade-verd          #+#    #+#             */
-/*   Updated: 2019/03/14 15:47:08 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/20 19:43:41 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_comment(t_env *env, char *orig)
 			env->header.comment[i++] = *str;
 		*str = ' ';
 	}
-	if (i && str && *str != '"')
+	if (i && str && *str != '"' && !env->err)
 		add_error(env, "The program description [.comment] is not terminated");
 	if (!i && !env->err)
 		add_error(env, "The program description [.comment] is empty");

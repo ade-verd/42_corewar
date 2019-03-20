@@ -6,7 +6,7 @@
 /*   By: rahassin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 19:16:48 by rahassin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:23:09 by rahassin         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:22:29 by rahassin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 		{
 			len = ft_strlen(argv[i]);
 			if (len > 4 && !ft_strcmp(&argv[i][len - 4], ".cor"))
-				asmr(argv[i], len, 0);
+				asmr(argv[i], len, 0, 0);
 			else
 				ft_putstr_fd(ERR_FRM, 2);
 			i++;
