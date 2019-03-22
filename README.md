@@ -46,10 +46,10 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 | 11 | `sti` | `REG`, `REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR` |`sti r2,%4,%5` sti copie `REG_SIZE` octets de r2 a l’adresse `(4 + 5)`. Les paramètres 2 et 3 sont des index. Si les paramètres 2 ou 3 sont des registres, on utilisera leur contenu comme un index.| 25 | Non | Oui | 2 |
 | 12 | `fork` | `DIR` | Cette instruction n’est pas suivie d’octet pour décrire les paramètres. Elle prend toujours un index et crée un nouveau programme qui s’exécute a partir de l’adresse:`(PC + (premier paramètre % IDX_MOD))`<br>`fork %34` crée un nouveau programme. Le nouveau programme hérite des différents états du père.| 800 | Non | Non | 2 |
 | 13 | `lld` | `DIR`&#124;`IND`, `REG` | Comme ld sans le `%IDX_MOD` Cette opération modifie le carry.| 10 | Oui | Oui | 4 |
-| 14 | `lldi` | `REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR, `REG` | Comme ldi sans le `%IDX_MOD` Cette opération modifie le carry.| 50 | Oui | Oui | 2 |
+| 14 | `lldi` | `REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR`, `REG` | Comme ldi sans le `%IDX_MOD` Cette opération modifie le carry.| 50 | Oui | Oui | 2 |
 | 15 | `lfork` | `DIR` | Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.| 1000 | Non | Non | 2 |
 | 16 | `aff` | `REG` | Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard. | 2 | Non | Oui | - |
-||||<img width=200/>|||||
+||||<img width=500/>|||||
 
 Nota:
 * `DIR`: Direct type: Number as unsigned int (4 bytes) or adress as unsigned short (2 bytes)
