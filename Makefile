@@ -6,7 +6,7 @@
 #    By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 13:46:57 by ade-verd          #+#    #+#              #
-#    Updated: 2019/03/08 18:01:54 by ade-verd         ###   ########.fr        #
+#    Updated: 2019/03/22 17:03:39 by ade-verd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ BIN_DEL = "--$(LOG_CLEAR)$(LOG_YELLOW)Binary$(LOG_NOCOLOR) deletion " \
 all: $(NAME)
 
 .PHONY: $(NAME)
-$(NAME): $(NAME_ASM) $(NAME_CW) $(NAME_RASM)
+$(NAME): submod_update $(NAME_ASM) $(NAME_CW) $(NAME_RASM)
 
 .PHONY: $(NAME_ASM)
 $(NAME_ASM): force
