@@ -6,7 +6,7 @@
 #    By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 13:46:57 by ade-verd          #+#    #+#              #
-#    Updated: 2019/03/22 17:03:39 by ade-verd         ###   ########.fr        #
+#    Updated: 2019/03/22 17:06:12 by ade-verd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ BIN_DEL = "--$(LOG_CLEAR)$(LOG_YELLOW)Binary$(LOG_NOCOLOR) deletion " \
 all: $(NAME)
 
 .PHONY: $(NAME)
-$(NAME): submod_update $(NAME_ASM) $(NAME_CW) $(NAME_RASM)
+$(NAME): submod_silent_update $(NAME_ASM) $(NAME_CW) $(NAME_RASM)
 
 .PHONY: $(NAME_ASM)
 $(NAME_ASM): force
@@ -126,6 +126,11 @@ submod_init:
 submod_update: submod_init
 	@echo -e "$(TITLE)Update submodules$(END_TITLE)"
 	git submodule update --recursive --remote
+
+.PHONY: submod_silent_update
+submod_silent_update:
+	@git submodule update --init --recursive > /dev/null 2>&1
+	@git submodule update --recursive --remote > /dev/null 2>&1
 
 .PHONY: submod_checkid
 submod_checkid:
