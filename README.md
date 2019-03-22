@@ -45,15 +45,15 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 | **`ldi`**<br /><br />`REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR`, `REG` | Sums the first two parameters. Considers this sum as a relative address. Then reads `REG_SIZE` bytes from this address and stores it into a register.<br /><br />*Example: `ldi 3,%4,r1` reads `IND_SIZE` bytes at `(PC + (3 % IDX_MOD))` and adds 4 to this value. Lets call this sum `S`. Then reads `REG_SIZE` bytes at `(PC + (S % IDX_MOD))` and copies the value into `r1`.* | 25 | No | Yes | 2 |
 | **`sti`**<br /><br />`REG`, `REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR` | Sums the last two parameters and considers it as an address. Then copies `REG_SIZE` bytes of a register (1st parameter) and stores it at the calculated address.<br /><br />*Example:`sti r2,%4,%5` copies  `REG_SIZE` bytes from `r2` at the address `(4 + 5)`.*| 25 | No | Yes | 2 |
 | **`fork`**<br /><br />`DIR` | Creates a new process at the address `(PC + (FIRST_PARAMETER % IDX_MOD))`. The new process inherits the attributes of his father. | 800 | No | No | 2 |
-| **`lld`**<br /><br />`DIR`&#124;`IND`, `REG` | Comme ld sans le `%IDX_MOD` Cette opération modifie le carry.| 10 | Yes | Yes | 4 |
-| **`lldi`**<br /><br />`REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR`, `REG` | Comme ldi sans le `%IDX_MOD` Cette opération modifie le carry.| 50 | Yes | Yes | 2 |
-| **`lfork`**<br /><br />`DIR` | Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.| 1000 | No | No | 2 |
-| **`aff`**<br /><br />`REG` | Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard. | 2 | No | Yes | - |
+| **`lld`**<br /><br />`DIR`&#124;`IND`, `REG` | Like `ld` without scope limit `%IDX_MOD` | 10 | Yes | Yes | 4 |
+| **`lldi`**<br /><br />`REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR`, `REG` | Like `ldi` without scope limit `%IDX_MOD`. | 50 | Yes | Yes | 2 |
+| **`lfork`**<br /><br />`DIR` | Like `fork` without scope limit `%IDX_MOD`. | 1000 | No | No | 2 |
+| **`aff`**<br /><br />`REG` | Displays the an ASCII character into a buffer. The buffer is displayed at the end of the game.<br /><br />*Example: `ld %42,r3` then `aff r3` will display '\*'.* | 2 | No | Yes | - |
 
-Nota:
 * `DIR`: Direct type: Number as unsigned int (4 bytes) or adress as unsigned short (2 bytes)
 * `IND`: Indirect type: Relative address
 * `REG`: Register type: Register which stores a numeric value
+* `IDX_MOD`: is a scope limit
 
 ## Set up
 ------------
