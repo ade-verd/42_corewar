@@ -49,6 +49,7 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 | 14 | `lldi` | `REG`&#124;`DIR`&#124;`IND`, `REG`&#124;`DIR, `REG` | Comme ldi sans le `%IDX_MOD` Cette opération modifie le carry.| 50 | Oui | Oui | 2 |
 | 15 | `lfork` | `DIR` | Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.| 1000 | Non | Non | 2 |
 | 16 | `aff` | `REG` | Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard. | 2 | Non | Oui | - |
+||||<img width=200/>|||||
 
 Nota:
 * `DIR`: Direct type: Number as unsigned int (4 bytes) or adress as unsigned short (2 bytes)
