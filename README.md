@@ -72,7 +72,10 @@ You can combine some flags. For example the flags -c (nCurses) and -v (Verbose)
 ##### Keys
 * <kbd>spacebar</kbd> Play / Pause
 * <kbd>larrow</kbd> Speed down -1
-* <kbd>←</kbd> Speed down -1
+* <kbd>◀</kbd> Speed down -10
+* <kbd>▼</kbd> Speed down -1
+* <kbd>▲</kbd> Speed up +1
+* <kbd>▶</kbd> Speed up +1
 * <kbd>@</kbd> Go to cycle ...
 * <kbd>end</kbd> Quit properly the program
 
