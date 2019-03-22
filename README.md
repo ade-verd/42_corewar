@@ -12,7 +12,7 @@ These battle programs are written in an abstract assembly language called Redcod
 
 Here's how it looks like:
 
-![Corewar](.gif)
+![Corewar](resources/screenshots/vm_sample.gif)
 
 We don't use the same set of assembly instructions as the original Corewar and we have some modulo limitations for the read and write ranges.
 
@@ -21,7 +21,7 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 ##### How to use it ?
 
 * First you'll need to write a .s file with a set of assembly instructions
-    * You can create your own champion with [this set below](#assembler-instructions) 
+    * You can create your own champion with [this set below](#assembler-instructions)
     * Or you can just use one of the many warriors in the resources/champs directory
 * Then you'll have to compile it using the `asm` binary
 * Then just execute the `corewar` binary with your warrior(s) as arguments
