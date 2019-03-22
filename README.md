@@ -50,10 +50,10 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 |0x0F (lfork)|Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.|
 |0x10 (aff)|Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard.|
 
-| N | OP | Effects (in French) | Charge (in cycles) | Modifies the `carry` ? | Octal Coding | Bytes nb for `DIRECT` |
-|:-:|:-: | ------------------- | :---------------------------------: | :------------------: | :----------: | :-----------------------------------: |
-| 1 | `live` |L'instruction `live` est suivie de 4 octets représentant le numéro du joueur. Cette instruction indique que ce joueur est en vie. | 10 | Non | Non | 4 |
-| 2 | `ld` |Cette instruction prend 2 paramètres. Le deuxième est forcément un registre (pas le PC). Elle load la valeur du premier paramètre dans le registre. Cette opération modifie le carry. ``ld 34,r3`` charge les `REG_SIZE` octets a partir de l’adresse `(PC + (34 % IDX_MOD))` dans le registre r3.| 5 | Oui | Oui | 4 |
+| N | OP | Effects | Charge (in cycles) | Modifies the `carry` ? | Octal Coding | Bytes nb for `DIR` |
+|:-:|:-: | ------- | :----------------: | :------  ------------: | :----------: | :-------------------: |
+| 1 | `live` | The instruction `live` is followed by 4 bytes which represents the player's player number as unsigned int. This instruction means the player is alive. | 10 | Non | Non | 4 |
+| 2 | `ld` | This instruction `ld` takes two parameters. The value of the first parameter (which is a `DIR` or an `IND`) is loaded into the second parameter which is a `REG`. Example: ``ld 34,r3`` stores `REG_SIZE` octets from 34 bytes after the current address (`(PC + (34 % IDX_MOD))`) into the register `r3`.| 5 | Oui | Oui | 4 |
 | 3 | `st` |Cette instruction prend 2 paramètres. Elle store (`REG_SIZE` octets) la valeur du premier argument (toujours un registre) dans le second. `st r4,34` store la valeur de r4 a l’adresse`(PC + (34 % IDX_MOD))`, `st r3,r8` copie r3 dans r8 | 5 | Non | Oui | - |
 | 4 | `add` |Cette instruction prend 3 registres en paramètre, additionne le contenu des 2 premiers et met le résultat dans le troisième. Cette opération modifie le carry. `add r2,r3,r5` additionne r2 et r3 et mets le résultat dans r5| 10 | Oui | Oui | - |
 | 5 | `sub` |Même que add mais soustrait | 10 | Oui | Oui | - |
@@ -68,6 +68,11 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 | 14 | `lldi` |Comme ldi sans le `%IDX_MOD` Cette opération modifie le carry.| 50 | Oui | Oui | 2 |
 | 15 | `lfork` |Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.| 1000 | Non | Non | 2 |
 | 16 | `aff` |Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard. | 2 | Non | Oui | - |
+
+Nota:
+* `DIR`: Direct type: Number as unsigned int (4 bytes) or adress as unsigned short (2 bytes)
+* `IND`: Indirect type: Relative address
+* `REG`: Register type: Register which stores a numeric value
 
 ## Set up
 ------------
