@@ -53,7 +53,7 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 | N | OP | Parameters | Effects | Charge (in cycles) | Modifies the `carry` ? | Octal Coding | Bytes nb for `DIR` |
 |:-:|:-: | :--------: | ------- | :----------------: | :--------------------: | :----------: | :-------------------: |
 | 1 | `live` | `DIR` |The instruction `live` is followed by 4 bytes which represents the player's player number as unsigned int. This instruction means the player is alive. | 10 | Non | Non | 4 |
-| 2 | `ld` | `DIR&#124;IND`, `REG` |This instruction `ld` takes 2 parameters. The value of the first parameter (which is a `DIR` or an `IND`) is loaded into the second parameter which is a `REG`. Example: `ld 34,r3` stores `REG_SIZE` octets from 34 bytes after the current address (`(PC + (34 % IDX_MOD))`) into the register `r3`.| 5 | Oui | Oui | 4 |
+| 2 | `ld` | `DIR &#124; IND`, `REG` |This instruction `ld` takes 2 parameters. The value of the first parameter (which is a `DIR` or an `IND`) is loaded into the second parameter which is a `REG`. Example: `ld 34,r3` stores `REG_SIZE` octets from 34 bytes after the current address (`(PC + (34 % IDX_MOD))`) into the register `r3`.| 5 | Oui | Oui | 4 |
 
 | 3 | `st` | `REG`, `IND`|`REG` | Cette instruction prend 2 paramètres. Elle store (`REG_SIZE` octets) la valeur du premier argument (toujours un registre) dans le second. `st r4,34` store la valeur de r4 a l’adresse`(PC + (34 % IDX_MOD))`, `st r3,r8` copie r3 dans r8 | 5 | Non | Oui | - |
 | 4 | `add` |This instruction `add` takes 3 parameters: 3 registers. The third parameterc the result of the addition of the first and the second parameters. Example: `add r2,r3,r5` sums `r2` and `r3` and stores the result into `r5` | 10 | Oui | Oui | - |
