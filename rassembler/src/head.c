@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 20:45:27 by rahassin          #+#    #+#             */
-/*   Updated: 2019/03/20 15:23:47 by rahassin         ###   ########.fr       */
+/*   Updated: 2019/03/22 10:52:01 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void				asmr(char *file, int len, int i, int fd)
 	file[len - 4] = '\0';
 	file = ft_strcat(file, "R.s\0");
 	fdo = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (buff[0] == '\0' || (buff[0] != 0 && buff[1] != 0xea && buff[2] != 0x83
-				&& buff[3] != 0xf3))
+	if (buff[0] != 0 && buff[1] != 0xea && buff[2] != 0x83 && buff[3] != 0xf3)
 	{
 		ft_putstr_fd(ERR_MGN, 2);
 		return ;

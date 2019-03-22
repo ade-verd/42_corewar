@@ -6,7 +6,7 @@
 /*   By: ade-verd <ade-verd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:10:46 by oozkaya           #+#    #+#             */
-/*   Updated: 2019/03/20 16:27:50 by ade-verd         ###   ########.fr       */
+/*   Updated: 2019/03/22 10:50:01 by ade-verd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void			s_env_init(t_env **env)
 	ft_bzero((*env)->aff, sizeof(t_buffer));
 	if (!((*env)->aff->str = (char*)malloc(sizeof(char) * 4096)))
 		error(*env, (char*)__FUNCTION__, 1);
+	ft_bzero((*env)->aff->str, sizeof(char) * 4096);
 }
 
 /*
