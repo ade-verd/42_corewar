@@ -50,7 +50,7 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 |0x0F (lfork)|Comme fork sans le `%IDX_MOD` Cette opération modifie le carry.|
 |0x10 (aff)|Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard.|
 
-| N | OP | Effects (in French) | Temps de charge de l'op (en cycles) | Modifie le `carry` ? | Codage Octal | Nombre d'octets pour le type `Direct` |
+| N | OP | Effects (in French) | Charge (in cycles) | Modifies the `carry` ? | Octal Coding | Bytes nb for `DIRECT` |
 |:-:|:-: | ------------------- | :---------------------------------: | :------------------: | :----------: | :-----------------------------------: |
 | 1 | `live` |L'instruction `live` est suivie de 4 octets représentant le numéro du joueur. Cette instruction indique que ce joueur est en vie. | 10 | Non | Non | 4 |
 | 2 | `ld` |Cette instruction prend 2 paramètres. Le deuxième est forcément un registre (pas le PC). Elle load la valeur du premier paramètre dans le registre. Cette opération modifie le carry. ``ld 34,r3`` charge les `REG_SIZE` octets a partir de l’adresse `(PC + (34 % IDX_MOD))` dans le registre r3.| 5 | Oui | Oui | 4 |
