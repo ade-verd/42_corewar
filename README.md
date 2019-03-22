@@ -51,7 +51,7 @@ Subjects: [corewar.fr.pdf](subject/corewar.fr.pdf) or [corewar.en.pdf](subject/c
 |0x10 (aff)|Cette instruction est suivi d’un octet de paramétrage pour décrire les paramètres. Elle prend en paramètre un registre et affiche le caractère dont le code ascii est présent dans ce registre. (un modulo 256 est applique au code ascii, le caractère est affiché sur la sortie standard).<br>Ex :` ld %42,r3` puis `aff r3` affiche ’*’ sur la sortie standard.|
 
 | N | OP | Effects | Charge (in cycles) | Modifies the `carry` ? | Octal Coding | Bytes nb for `DIR` |
-|:-:|:-: | ------- | :----------------: | :------  ------------: | :----------: | :-------------------: |
+|:-:|:-: | ------- | :----------------: | :--------------------: | :----------: | :-------------------: |
 | 1 | `live` | The instruction `live` is followed by 4 bytes which represents the player's player number as unsigned int. This instruction means the player is alive. | 10 | Non | Non | 4 |
 | 2 | `ld` | This instruction `ld` takes two parameters. The value of the first parameter (which is a `DIR` or an `IND`) is loaded into the second parameter which is a `REG`. Example: ``ld 34,r3`` stores `REG_SIZE` octets from 34 bytes after the current address (`(PC + (34 % IDX_MOD))`) into the register `r3`.| 5 | Oui | Oui | 4 |
 
