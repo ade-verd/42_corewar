@@ -72,11 +72,9 @@ You can combine some flags. For example the flags -c (nCurses) and -v (Verbose)
 ##### Keys
 * <kbd>spacebar</kbd> Play / Pause
 * <kbd>larrow</kbd> Speed down -1
-* <kbd>◀</kbd> Speed down -10
-* <kbd>▼</kbd> Speed down -1
-* <kbd>▲</kbd> Speed up +1
-* <kbd>▶</kbd> Speed up +1
-* <kbd>@</kbd> Go to cycle ...
+* <kbd>▲</kbd> or <kbd>▶</kbd> Speed up (respectively +1 or +10)
+* <kbd>▼</kbd> or <kbd>◀</kbd> Speed down (respectively -1 or -10)
+* <kbd>@</kbd> Go to cycle ... Then an integer superior than the current cycle is expected). Validate with <kbd>Enter</kbd>
 * <kbd>end</kbd> Quit properly the program
 
 #### asm - Assembler
